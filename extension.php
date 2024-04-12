@@ -63,11 +63,14 @@ class FilterTitleExtension extends Minz_Extension {
     }
 
     private function isPatternFound(string $title, string $pattern): bool {
-        if (1 === preg_match($pattern, $title)) {
+        $escapedPattern = preg_quote($pattern, '/');
+        
+        if (1 === preg_match('/' . $escapedPattern . '/', $title)) {
             return true;
         } elseif (strpos($title, $pattern) !== false) {
             return true;
         }
+        
         return false;
     }
 
